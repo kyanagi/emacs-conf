@@ -171,6 +171,7 @@
   :config
   (set-fontset-font nil '(#x00 . #x7f) (font-spec :family "Monaco" :size 14))
   (set-fontset-font nil '(#x80 . #x10ffff) (font-spec :family "Migu 1M" :size 16))
+  (set-fontset-font nil '#x3000 (font-spec :family "HackGen Console" :size 15))
   )
 
 (leaf display-settings
