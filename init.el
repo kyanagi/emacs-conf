@@ -406,6 +406,11 @@
 ;;   )
 (load "/Users/ani/c/scratch-ext-el/scratch-ext.el")
 
+(leaf popwin
+  :ensure t
+  :config
+  (popwin-mode))
+
 (leaf *mac
   :config
   (mac-auto-ascii-mode 1)
