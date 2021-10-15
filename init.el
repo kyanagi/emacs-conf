@@ -411,6 +411,13 @@
   :config
   (popwin-mode))
 
+(leaf volatile-highlights
+  :ensure t
+  :config
+  (set-face-attribute 'vhl/default-face nil :inherit 'modus-themes-special-mild :background nil :foreground nil)
+  (volatile-highlights-mode t)
+  )
+
 (leaf *mac
   :config
   (mac-auto-ascii-mode 1)
