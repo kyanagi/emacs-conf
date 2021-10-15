@@ -411,6 +411,11 @@
   :config
   (popwin-mode))
 
+(leaf beacon
+  :ensure t
+  :config
+  (beacon-mode))
+
 (leaf volatile-highlights
   :ensure t
   :config
