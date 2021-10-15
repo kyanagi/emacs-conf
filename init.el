@@ -203,6 +203,7 @@
   :custom
   ((auto-save-visited-interval . 0.5)
    (make-backup-files . nil)
+   (require-final-newline . t)
    )
 
   :config
