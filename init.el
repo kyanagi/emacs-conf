@@ -299,7 +299,21 @@
    (iflipb-ignore-buffers . (lambda (bufname)
                               (and (not (string= "*scratch*" bufname))
                                    (string-match "^[*]" bufname))))
-   ))
+   )
+  :config
+  (setq-default header-line-format
+                '((:eval
+                   (let* ((interesting-buffers (iflipb-interesting-buffers))
+                          (buffer-list (if (iflipb-first-iflipb-buffer-switch-command)
+                                           interesting-buffers
+                                         (append
+                                          iflipb-saved-buffers
+                                          (list (current-buffer))
+                                          (nthcdr (1+ (length iflipb-saved-buffers)) interesting-buffers)
+                                          ))))
+                     (format-message "%s" (iflipb-format-buffers (current-buffer) buffer-list))
+                     ))))
+  )
 
 (leaf *completion
   :config
