@@ -432,9 +432,10 @@
 
 (leaf volatile-highlights
   :ensure t
+  :after modus-themes
   :config
-  (set-face-attribute 'vhl/default-face nil :inherit 'modus-themes-special-mild :background nil :foreground nil)
   (volatile-highlights-mode t)
+  (set-face-attribute 'vhl/default-face nil :inherit 'modus-themes-special-mild :background nil :foreground nil)
   )
 
 (leaf *mac
