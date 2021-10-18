@@ -263,7 +263,7 @@
   ((uniquify-buffer-name-style . 'post-forward-angle-brackets)
    (uniquify-ignore-buffers-re . "*[^*]+*")))
 
-(leaf view-mode
+(leaf view
   :bind
   ((view-mode-map
     ("N" . View-search-last-regexp-backward)
