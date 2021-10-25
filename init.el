@@ -439,6 +439,8 @@
   )
 
 (leaf *mac
+  :custom
+  ((mac-option-modifier . 'alt))
   :config
   (mac-auto-ascii-mode 1)
   )
