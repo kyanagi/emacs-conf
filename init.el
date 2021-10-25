@@ -438,6 +438,18 @@
   (set-face-attribute 'vhl/default-face nil :inherit 'modus-themes-special-mild :background nil :foreground nil)
   )
 
+(leaf anzu
+  :ensure t
+  :bind
+  (("M-%" . anzu-query-replace)
+   ("C-M-%" . anzu-query-replace-regexp))
+  :custom
+  ((anzu-use-migemo . t)
+   )
+  :config
+  (global-anzu-mode 1)
+  )
+
 (leaf region-bindings-mode
   :ensure t
   :require t
