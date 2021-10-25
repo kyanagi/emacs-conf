@@ -438,6 +438,22 @@
   (set-face-attribute 'vhl/default-face nil :inherit 'modus-themes-special-mild :background nil :foreground nil)
   )
 
+(leaf region-bindings-mode
+  :ensure t
+  :require t
+  :bind
+  ((region-bindings-mode-map
+    ("i" . mc/edit-lines)
+    ))
+  :config
+  (region-bindings-mode-enable))
+
+(leaf multiple-cursors
+  :ensure t
+  :custom
+  ((mc/always-run-for-all . t))
+  )
+
 (leaf *mac
   :custom
   ((mac-option-modifier . 'alt))
