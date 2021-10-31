@@ -347,7 +347,6 @@
     :ensure t
     :bind
     (;("M-s" . consult-line)
-     ("M-g" . consult-goto-line)
      ("C-x b" . consult-buffer)
      )
     )
