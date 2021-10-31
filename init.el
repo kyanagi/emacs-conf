@@ -198,6 +198,27 @@
     (show-trailing-whitespace . t)
     ))
 
+(leaf *mode-line
+  :preface
+  (defun my:mode-line-position-reverse ()
+    (propertize
+     (format-message "(%d,%d)"
+                     (if (eobp)
+                         -1
+                       (- (line-number-at-pos) (count-lines (point-min) (point-max)) 1))
+                     (- (point) (line-end-position) 1))
+     'face '(:foreground "gray60")))
+  :custom
+  ((mode-line-format
+    .
+    '("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification
+      mode-line-buffer-identification "   " mode-line-position
+      (:eval
+       (my:mode-line-position-reverse))
+      (vc-mode vc-mode) "  " mode-line-modes mode-line-misc-info mode-line-end-spaces)
+    )))
+
+
 (leaf files
   :preface
   (defvar my/auto-save-exclude-filename-regexp "\\(^/[a-z]+:\\)\\|\\(\\.gpg$\\)\\|\\(/Dropbox/\\)")
