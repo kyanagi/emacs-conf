@@ -55,10 +55,12 @@
 
 (leaf startup
   :custom
-  ((inhibit-startup-screen . t)
-   (user-mail-address . "yanagi@shakenbu.org")
-   (gc-cons-threshold . 5000000)
-   ))
+  `((inhibit-startup-screen . t)
+    (user-mail-address . "yanagi@shakenbu.org")
+    (gc-cons-threshold . ,(* 100 1000 1000))
+    )
+  :config
+  (run-with-idle-timer 60.0 t #'garbage-collect))
 
 (leaf exec-path-from-shell
   :ensure t
