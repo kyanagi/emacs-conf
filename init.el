@@ -318,6 +318,12 @@
   (leaf ruby-electric :ensure t)
   )
 
+(leaf lua-mode
+  :ensure t
+  :custom
+  (lua-indent-level . 2)
+  )
+
 (leaf iflipb
   :ensure t
   :bind
