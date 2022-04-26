@@ -432,6 +432,10 @@
   :ensure t
   )
 
+(leaf dockerfile-mode
+  :ensure t
+  )
+
 (leaf sequential-command
   :ensure t
   :require sequential-command-config
