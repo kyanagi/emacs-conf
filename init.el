@@ -6,7 +6,6 @@
 ;;; https://www.grugrut.net/posts/my-emacs-init-el/
 
 
-
 (eval-and-compile
   (when (or load-file-name byte-compile-current-file)
     (setq user-emacs-directory
@@ -171,9 +170,12 @@
   ((use-default-font-for-symbols . nil))
 
   :config
-  (set-fontset-font nil '(#x00 . #x7f) (font-spec :family "Monaco" :size 14))
-  (set-fontset-font nil '(#x80 . #x10ffff) (font-spec :family "Migu 1M" :size 16))
-  (set-fontset-font nil '#x3000 (font-spec :family "HackGen Console" :size 15))
+  ;; http://extra-vision.blogspot.com/2016/07/emacs.html
+  (let* ((fontset-name "myfont")
+         (fsn (create-fontset-from-ascii-font "Monaco-14" nil fontset-name)))
+    (set-fontset-font fsn '#x3000 (font-spec :family "HackGen Console" :size 15) nil 'append)
+    (set-fontset-font fsn 'unicode (font-spec :family "Migu 1M" :size 16) nil 'append)
+    (add-to-list 'default-frame-alist `(font . ,fsn)))
   )
 
 (leaf display-settings
