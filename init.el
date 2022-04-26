@@ -303,6 +303,12 @@
   :hook
   ((find-function-after-hook . view-mode-enter)))
 
+(leaf makefile-mode
+  :hook
+  (makefile-mode-hook . (lambda ()
+                          (fset 'makefile-warn-suspicious-lines 'ignore)))
+  )
+
 (leaf ruby
   :hook
   ((ruby-mode-hook . ruby-electric-mode)
