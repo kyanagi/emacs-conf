@@ -476,10 +476,19 @@
   )
 
 (leaf *mac
+  :preface
+  (defun my/mac-change-cursor-color-based-on-input-source ()
+    (let ((mac-input-source (mac-input-source)))
+      (set-cursor-color
+       (if (string-match "com.apple.inputmethod.Kotoeri.Romaji" mac-input-source)
+           "red"
+         "white"))))
   :custom
   ((mac-option-modifier . 'alt))
   :config
   (mac-auto-ascii-mode 1)
+  :hook
+  ((mac-selected-keyboard-input-source-change-hook . my/mac-change-cursor-color-based-on-input-source))
   )
 
 ;; TODO: judge-indent
