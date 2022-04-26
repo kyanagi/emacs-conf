@@ -428,6 +428,10 @@
   :ensure t
   )
 
+(leaf terraform-mode
+  :ensure t
+  )
+
 (leaf sequential-command
   :ensure t
   :require sequential-command-config
