@@ -104,7 +104,7 @@
   :ensure t
   :custom
   (
-   (modus-themes-syntax . 'green-strings)
+   (modus-themes-syntax . '(green-strings))
    (modus-themes-fringes . 'intense)
    (modus-themes-paren-match '(bold intense))
    (modus-themes-mode-line '(3d))
