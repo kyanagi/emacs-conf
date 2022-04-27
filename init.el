@@ -198,7 +198,13 @@
     (display-time-mode . t)
     (display-line-numbers . t)
     (show-trailing-whitespace . t)
-    ))
+    )
+  :config
+  (add-to-list 'default-frame-alist '(width . 180))
+  (add-to-list 'default-frame-alist '(height . 50))
+  (add-to-list 'default-frame-alist '(left . 130))
+  (add-to-list 'default-frame-alist '(top . 100))
+  )
 
 (leaf *mode-line
   :preface
