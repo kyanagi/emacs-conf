@@ -464,12 +464,14 @@
 
 (leaf beacon
   :ensure t
+  :blackout t
   :config
   (beacon-mode))
 
 (leaf volatile-highlights
   :ensure t
   :after modus-themes
+  :blackout t
   :config
   (volatile-highlights-mode t)
   (set-face-attribute 'vhl/default-face nil :inherit 'modus-themes-special-mild :background nil :foreground nil)
