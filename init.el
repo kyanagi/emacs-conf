@@ -204,6 +204,12 @@
   (add-to-list 'default-frame-alist '(height . 50))
   (add-to-list 'default-frame-alist '(left . 130))
   (add-to-list 'default-frame-alist '(top . 100))
+
+  (leaf Buffer-menu-mode
+    :hook
+    (Buffer-menu-mode-hook . (lambda ()
+                               (setq show-trailing-whitespace nil)))
+    )
   )
 
 (leaf *mode-line
