@@ -256,6 +256,7 @@
     :hook
     (switch-buffer-functions . my/toggle-auto-save-visited-mode-for-buffer)
     )
+  (save-place-mode 1)
   )
 
 (leaf simple
