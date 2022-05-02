@@ -163,6 +163,9 @@
   :bind
   (("<M-left>" . my/decrease-frame-opacity)
    ("<M-right>" . my/increase-frame-opacity))
+  :custom
+  ((window-resize-pixelwise . t)
+   (frame-resize-pixelwise . t))
   )
 
 (leaf font
