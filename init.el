@@ -352,14 +352,20 @@
    )
   )
 
+
 (leaf *completion
   :config
   (leaf vertico
     :ensure t
+    :bind
+    ((vertico-map
+      ("C-s" . vertico-next)
+      ("C-r" . vertico-previous)
+      ))
     :custom
     (vertico-count . 20)
-    :config
-    (vertico-mode)
+    (vertico-cycle . t)
+    :global-minor-mode t
     )
 
   (leaf orderless
@@ -394,7 +400,8 @@
   (leaf consult
     :ensure t
     :bind
-    (;("M-s" . consult-line)
+    (("C-s" . consult-line)
+     ("C-S-s" . isearch-forward)
      ("C-x b" . consult-buffer)
      )
     )
