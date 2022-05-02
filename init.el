@@ -286,6 +286,9 @@
    (kill-read-only-ok . t)
    ))
 
+(leaf electric-pair
+  :global-minor-mode t)
+
 (leaf indent
   :preface
   (defun my/yank-and-indent ()
