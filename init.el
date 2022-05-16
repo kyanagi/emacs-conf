@@ -399,9 +399,7 @@
 
   (leaf marginalia
     :ensure t
-    :config
-    (marginalia-mode)
-    )
+    :global-minor-mode t)
 
   (leaf consult
     :ensure t
@@ -415,8 +413,7 @@
   (leaf savehist-mode
     :custom
     `((savehist-file . ,(expand-file-name "~/var/emacs/history")))
-    :config
-    (savehist-mode))
+    :global-minor-mode t)
   )
 
 (leaf migemo
@@ -479,14 +476,12 @@
 
 (leaf popwin
   :ensure t
-  :config
-  (popwin-mode))
+  :global-minor-mode t)
 
 (leaf beacon
   :ensure t
   :blackout t
-  :config
-  (beacon-mode))
+  :global-minor-mode t)
 
 (leaf volatile-highlights
   :ensure t
