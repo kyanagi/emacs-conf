@@ -415,6 +415,18 @@
      )
     )
 
+  (leaf affe
+    :ensure t
+    :bind
+    ("M-o" . affe-grep)
+    ("M-p" . affe-find)
+    :custom
+    (affe-regexp-function . #'orderless-pattern-compiler)
+    (affe-highlight-function . #'orderless--highlight)
+    :config
+    (consult-customize affe-grep :preview-key (kbd "M-."))
+    )
+
   (leaf savehist-mode
     :custom
     `((savehist-file . ,(expand-file-name "~/var/emacs/history")))
