@@ -34,6 +34,16 @@
     ;; initialize leaf-keywords.el
     (leaf-keywords-init)))
 
+(defun my/locate-user-emacs-data-file (name)
+  "Emacsが保存する個人用データファイルのパスを返す。
+XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
+そうでなければuser-emacs-directoryとなる。"
+  (let* ((xdg-data-home (getenv "XDG_DATA_HOME"))
+         (dir (if xdg-data-home
+                  (expand-file-name "emacs" xdg-data-home)
+                user-emacs-directory)))
+    (expand-file-name name dir)))
+
 ;; ここに設定を書く
 (leaf leaf
   :config
@@ -259,8 +269,12 @@
     :hook
     (switch-buffer-functions . my/toggle-auto-save-visited-mode-for-buffer)
     )
-  (save-place-mode 1)
   )
+
+(leaf save-place
+  :custom
+  `(save-place-file . ,(my/locate-user-emacs-data-file "places"))
+  :global-minor-mode t)
 
 (leaf simple
   :doc "basic editing commands for Emacs"
