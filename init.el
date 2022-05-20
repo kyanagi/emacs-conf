@@ -420,11 +420,11 @@
   :ensure t
   :require t
   :custom
-  `((migemo-dictionary . ,(expand-file-name "~/var/migemo/migemo-dict"))
+  `((migemo-dictionary . ,(expand-file-name "~/.config/migemo/migemo-dict"))
     )
   :config
   ;; 追加辞書
-  (dolist (dict '("~/var/migemo/migemo-dict.jis3_4"))
+  (dolist (dict '("~/.config/migemo/migemo-dict.jis3_4"))
     (setq dict (expand-file-name dict))
     (if (file-exists-p dict)
         (setq migemo-options (append migemo-options (list "-s" dict)))))
