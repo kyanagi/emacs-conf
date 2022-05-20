@@ -302,6 +302,11 @@
   (("C-M-'" . indent-region)
    ("C-M-y" . my/yank-and-indent)))
 
+(leaf comment
+  :custom
+  ((comment-style . 'multi-line))
+  )
+
 (leaf uniquify
   :custom
   ((uniquify-buffer-name-style . 'post-forward-angle-brackets)
