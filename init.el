@@ -103,7 +103,6 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :custom
   `((indent-tabs-mode . nil)
     (create-lockfiles . nil)
-    (enable-recursive-minibuffers . t)
     (history-length . 1000)
     (history-delete-duplicates . t)
     )
@@ -380,6 +379,14 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 
 (leaf *completion
   :config
+  (leaf minibuffer
+    :custom
+    (enable-recursive-minibuffers . t)
+    (minibuffer-prompt-properties . '(read-only t cursor-intangible t face minibuffer-prompt))
+    :hook
+    (minibuffer-setup-hook . cursor-intangible-mode)
+    )
+
   (leaf vertico
     :ensure t
     :bind
