@@ -442,6 +442,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     ("M-o" . affe-grep)
     ("M-p" . affe-find)
     :custom
+    (affe-count . 100)
     (affe-regexp-function . #'orderless-pattern-compiler)
     (affe-highlight-function . #'orderless--highlight)
     :config
