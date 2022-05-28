@@ -623,12 +623,15 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
        (if (string-match "com.apple.inputmethod.Kotoeri.Romaji" mac-input-source)
            "red"
          "white"))))
+  (defun my/ime-off ()
+    (mac-select-input-source "com.apple.keylayout.ABC"))
   :custom
   ((mac-option-modifier . 'alt))
   :config
   (mac-auto-ascii-mode 1)
   :hook
-  ((mac-selected-keyboard-input-source-change-hook . my/mac-change-cursor-color-based-on-input-source))
+  (mac-selected-keyboard-input-source-change-hook . my/mac-change-cursor-color-based-on-input-source)
+  (minibuffer-setup-hook . my/ime-off)
   )
 
 ;; TODO: judge-indent
