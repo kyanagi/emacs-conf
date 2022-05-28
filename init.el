@@ -455,9 +455,10 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (leaf consult
     :ensure t
     :bind
-    (("C-s" . consult-line)
-     ("C-S-s" . isearch-forward)
+    (("C-S-s" . consult-line)
      ("C-x b" . consult-buffer)
+     (:isearch-mode-map
+      ("C-l" . consult-line))
      )
     )
 
