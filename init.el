@@ -315,6 +315,15 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (("C-M-'" . indent-region)
    ("C-M-y" . my/yank-and-indent)))
 
+(leaf highlight-indent-guides
+  :ensure t
+  :blackout t
+  :hook (yaml-mode-hook . highlight-indent-guides-mode)
+  :custom
+  (highlight-indent-guides-method . 'bitmap)
+  (highlight-indent-guides-responsive . 'stack)
+  )
+
 (leaf comment
   :custom
   ((comment-style . 'multi-line))
