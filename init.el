@@ -457,6 +457,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     :bind
     (("C-S-s" . consult-line)
      ("C-x b" . consult-buffer)
+     ("M-y" . consult-yank-from-kill-ring)
      (:isearch-mode-map
       ("C-l" . consult-line))
      )
