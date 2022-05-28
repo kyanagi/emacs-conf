@@ -507,7 +507,8 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 
   (leaf savehist-mode
     :custom
-    `((savehist-file . ,(expand-file-name "~/var/emacs/history")))
+    `((savehist-file . ,(my/locate-user-emacs-data-file "history"))
+      (savehist-additional-variables . '(search-ring regexp-search-ring)))
     :global-minor-mode t)
   )
 
