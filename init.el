@@ -463,6 +463,15 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
      )
     )
 
+  (leaf consult-dir
+    :ensure t
+    :bind
+    ("C-x C-d" . consult-dir)
+    (:vertico-map
+     ("C-x C-d" . consult-dir)
+     ("C-x C-j" . consult-dir-jump-file))
+    )
+
   (leaf affe
     :ensure t
     :bind
