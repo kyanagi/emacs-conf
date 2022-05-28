@@ -44,6 +44,13 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
                 user-emacs-directory)))
     (expand-file-name name dir)))
 
+(defmacro my/with-suppressed-message (&rest body)
+  "Suppress new messages temporarily in the echo area and the `*Messages*' buffer while BODY is evaluated."
+  (declare (indent 0))
+  (let ((message-log-max nil))
+    `(with-temp-message (or (current-message) "") ,@body)))
+
+
 ;; ここに設定を書く
 (leaf leaf
   :config
@@ -385,6 +392,15 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
    )
   )
 
+(leaf recentf
+  :custom
+  (recentf-auto-cleanup . 'never)
+  (recentf-max-saved-items . 1000)
+  `(recentf-save-file . ,(my/locate-user-emacs-data-file "recentf"))
+  :hook
+  (find-file-hook . (lambda ()
+                      (my/with-suppressed-message (recentf-save-list))))
+  :global-minor-mode t)
 
 (leaf *completion
   :config
