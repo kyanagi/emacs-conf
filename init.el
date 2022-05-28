@@ -472,6 +472,26 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
      ("C-x C-j" . consult-dir-jump-file))
     )
 
+  (leaf embark
+    :ensure t
+    :bind
+    ("C-;" . embark-act)
+    (:embark-file-map
+     ("r" . find-file-read-only)
+     ("R" . rename-file))
+    :config
+    (add-to-list 'display-buffer-alist
+                 '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                   nil
+                   (window-parameters (mode-line-format . none))))
+    )
+
+  (leaf embark-consult
+    :ensure t
+    :after (embark consult)
+    :hook
+    (embark-collect-mode-hook . consult-preview-at-point-mode))
+
   (leaf affe
     :ensure t
     :bind
