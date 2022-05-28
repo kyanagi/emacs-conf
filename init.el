@@ -534,13 +534,12 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 (leaf anzu
   :ensure t
   :bind
-  (("M-%" . anzu-query-replace)
-   ("C-M-%" . anzu-query-replace-regexp))
+  (([remap query-replace] . anzu-query-replace)
+   ([remap query-replace-regexp] . anzu-query-replace-regexp))
   :custom
   ((anzu-use-migemo . t)
    )
-  :config
-  (global-anzu-mode 1)
+  :global-minor-mode t
   )
 
 (leaf region-bindings-mode
