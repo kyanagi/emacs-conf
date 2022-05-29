@@ -454,6 +454,16 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 
   (leaf consult
     :ensure t
+    :preface
+    (defun my/consult-preview-exclude-by-file-name (orig-fun name)
+      (let ((excluded (and name
+                           (string-match-p "\.gpg$"
+                                           (abbreviate-file-name (expand-file-name name))))))
+        (if excluded
+            (progn
+              (message "not previewed")
+              nil)
+          (apply orig-fun (list name)))))
     :bind
     (("C-S-s" . consult-line)
      ("C-x b" . consult-buffer)
@@ -461,6 +471,8 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
      (:isearch-mode-map
       ("C-l" . consult-line))
      )
+    :advice
+    (:around consult--find-file-temporarily my/consult-preview-exclude-by-file-name)
     )
 
   (leaf consult-dir
