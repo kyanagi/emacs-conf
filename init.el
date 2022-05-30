@@ -73,6 +73,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :custom
   `((inhibit-startup-screen . t)
     (user-mail-address . "yanagi@shakenbu.org")
+    (source-directory . "~/opt/emacs")
     (gc-cons-threshold . ,(* 100 1000 1000))
     )
   :config
