@@ -365,13 +365,13 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
                           (fset 'makefile-warn-suspicious-lines 'ignore)))
   )
 
-(leaf ruby
+(leaf ruby-mode
   :hook
   ((ruby-mode-hook . ruby-electric-mode)
    (ruby-mode-hook . (lambda ()
                        (remove-hook 'after-save-hook 'ruby-mode-set-encoding t))))
   :config
-  (leaf ruby-electric :ensure t)
+  (leaf ruby-electric :ensure t :blackout t)
   )
 
 (leaf lua-mode
