@@ -416,11 +416,6 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 
   (leaf vertico
     :ensure t
-    :bind
-    ((vertico-map
-      ("C-s" . vertico-next)
-      ("C-r" . vertico-previous)
-      ))
     :custom
     (vertico-count . 20)
     (vertico-cycle . t)
