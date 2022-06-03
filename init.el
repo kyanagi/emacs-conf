@@ -126,6 +126,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     (history-length . 1000)
     (history-delete-duplicates . t)
     (text-quoting-style . 'straight)
+    (use-dialog-box . nil)
     )
   )
 
