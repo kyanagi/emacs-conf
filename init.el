@@ -50,6 +50,18 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (let ((message-log-max nil))
     `(with-temp-message (or (current-message) "") ,@body)))
 
+;;; 追加のload-path
+(defvar my/additional-library-dir (locate-user-emacs-file "opt")
+  "パッケージ管理外のライブラリが置かれるディレクトリ。
+このディレクトリ直下のサブディレクトリがload-pathに追加される。")
+
+;; パッケージ管理外のライブラリをload-pathに追加
+(when (file-directory-p my/additional-library-dir)
+  (dolist (subdir (directory-files my/additional-library-dir))
+    (unless (string-prefix-p "." subdir)
+      (let ((dir (expand-file-name subdir my/additional-library-dir)))
+        (when (file-directory-p dir)
+          (push dir load-path))))))
 
 ;; ここに設定を書く
 (leaf leaf
