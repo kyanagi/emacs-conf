@@ -161,7 +161,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
             (split-window-horizontally)
           (split-window-vertically))
       (if arg
-          (swap-buffers-in-windows)))
+          (my/swap-buffers-in-windows)))
     (other-window 1))
 
   :bind
