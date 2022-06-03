@@ -536,17 +536,12 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 
 (leaf migemo
   :ensure t
-  :require t
   :custom
   `((migemo-dictionary . ,(expand-file-name "~/.config/migemo/migemo-dict"))
+    (migemo-options . '("-q" "--emacs" "-s" ,(expand-file-name "~/.config/migemo/migemo-dict.jis3_4")))
     )
-  :config
-  ;; 追加辞書
-  (dolist (dict '("~/.config/migemo/migemo-dict.jis3_4"))
-    (setq dict (expand-file-name dict))
-    (if (file-exists-p dict)
-        (setq migemo-options (append migemo-options (list "-s" dict)))))
-  (migemo-init)
+  :hook
+  (window-setup-hook . migemo-init)
   )
 
 (leaf undo-fu
