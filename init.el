@@ -381,9 +381,9 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 
 (leaf ruby-mode
   :hook
-  ((ruby-mode-hook . ruby-electric-mode)
-   (ruby-mode-hook . (lambda ()
-                       (remove-hook 'after-save-hook 'ruby-mode-set-encoding t))))
+  (ruby-mode-hook . ruby-electric-mode)
+  :custom
+  (ruby-insert-encoding-magic-comment . nil)
   :config
   (leaf ruby-electric :ensure t :blackout t)
   )
