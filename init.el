@@ -516,15 +516,22 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 
   (leaf affe
     :ensure t
+    :preface
+    (defun my/affe-grep (&optional at-point)
+      "C-uをつけるとカーソル位置の文字列で検索するaffe-grep。"
+      (interactive "P")
+      (if at-point
+          (affe-grep nil (thing-at-point 'symbol))
+        (affe-grep)))
     :bind
-    ("M-o" . affe-grep)
+    ("M-o" . my/affe-grep)
     ("M-p" . affe-find)
     :custom
     (affe-count . 100)
     (affe-regexp-function . #'orderless-pattern-compiler)
     (affe-highlight-function . #'orderless--highlight)
     :config
-    (consult-customize affe-grep :preview-key (kbd "M-."))
+    (consult-customize my/affe-grep :preview-key (kbd "M-."))
     )
 
   (leaf savehist-mode
