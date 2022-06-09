@@ -455,9 +455,8 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
                  (vertico-directory--completing-file-p))
         (let ((pdir (consult--project-root)))
           (when pdir
-            (setq pdir (replace-regexp-in-string abbreviated-home-dir "~/" pdir))
             (delete-minibuffer-contents)
-            (insert pdir)))))
+            (insert (abbreviate-file-name pdir))))))
     :custom
     (vertico-count . 20)
     (vertico-cycle . t)
