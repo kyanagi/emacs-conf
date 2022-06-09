@@ -583,7 +583,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     (migemo-options . '("-q" "--emacs" "-s" ,(expand-file-name "~/.config/migemo/migemo-dict.jis3_4")))
     )
   :hook
-  (window-setup-hook . migemo-init)
+  (my/emacs-launched-hook . migemo-init)
   )
 
 (leaf undo-fu
@@ -618,10 +618,10 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 
 (leaf sequential-command
   :ensure t
-  :require sequential-command-config
-  :config
-  (sequential-command-setup-keys)
-  )
+  :hook
+  (my/emacs-launched-hook . (lambda ()
+                              (require 'sequential-command-config)
+                              (sequential-command-setup-keys))))
 
 ;; (leaf scratch-ext
 ;;   :ensure t
@@ -692,6 +692,9 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (mac-selected-keyboard-input-source-change-hook . my/mac-change-cursor-color-based-on-input-source)
   (minibuffer-setup-hook . my/ime-off)
   )
+
+;;; 起動後に後回しできる初期化処理をフックで呼ぶ
+(run-with-idle-timer 0.5 nil (lambda () (run-hooks 'my/emacs-launched-hook)))
 
 ;; TODO: judge-indent
 
