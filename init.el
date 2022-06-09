@@ -4,7 +4,11 @@
 ;;; https://emacs-jp.github.io/tips/emacs-in-2020
 ;;; https://uwabami.github.io/cc-env/Emacs.html
 ;;; https://www.grugrut.net/posts/my-emacs-init-el/
+;;; https://emacs-jp.github.io/tips/startup-optimization
 
+;;; 起動中はMagicファイル名を無効にする（ファイル末尾で戻す）
+(defconst my/saved-file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
 
 (eval-and-compile
   (when (or load-file-name byte-compile-current-file)
@@ -690,6 +694,10 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   )
 
 ;; TODO: judge-indent
+
+;;; Magicファイル名を復帰
+(setq file-name-handler-alist my/saved-file-name-handler-alist)
+(makunbound 'my/saved-file-name-handler-alist)
 
 (provide 'init)
 
