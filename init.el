@@ -216,8 +216,6 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :custom
   `((line-number-mode . t)
     (column-number-mode . t)
-    (tool-bar-mode . nil)
-    (menu-bar-mode . nil)
     (transient-mark-mode . t)
     (search-highlight . t)
     (query-replace-highlight . t)
