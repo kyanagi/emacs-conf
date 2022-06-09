@@ -86,14 +86,19 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :custom `((custom-file . ,(locate-user-emacs-file "custom.el"))))
 
 (leaf startup
+  :leaf-defer nil
   :custom
   `((inhibit-startup-screen . t)
     (user-mail-address . "yanagi@shakenbu.org")
     (source-directory . "~/opt/emacs")
     (gc-cons-threshold . ,(* 100 1000 1000))
     )
+  :hook
+  (window-setup-hook . (lambda ()
+                         (message (format "emacs-init-time = %s"(emacs-init-time)))))
   :config
-  (run-with-idle-timer 60.0 t #'garbage-collect))
+  (run-with-idle-timer 60.0 t #'garbage-collect)
+  (fset 'display-startup-echo-area-message 'ignore))
 
 (leaf exec-path-from-shell
   :ensure t
