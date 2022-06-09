@@ -449,10 +449,24 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 
   (leaf vertico
     :ensure t
+    :preface
+    (autoload 'vertico-directory--completing-file-p "vertico-directory")
+    (defun my/vertico-insert-project-root ()
+      (interactive)
+      (when (and (> (point) (minibuffer-prompt-end))
+                 (vertico-directory--completing-file-p))
+        (let ((pdir (consult--project-root)))
+          (when pdir
+            (setq pdir (replace-regexp-in-string abbreviated-home-dir "~/" pdir))
+            (delete-minibuffer-contents)
+            (insert pdir)))))
     :custom
     (vertico-count . 20)
     (vertico-cycle . t)
     :global-minor-mode t
+    :bind
+    (:vertico-map
+     ("^" . #'my/vertico-insert-project-root))
     )
 
   (leaf orderless
