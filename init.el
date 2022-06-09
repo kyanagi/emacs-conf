@@ -647,6 +647,13 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (set-face-attribute 'vhl/default-face nil :inherit 'modus-themes-special-mild :background nil :foreground nil)
   )
 
+(leaf symbol-overlay
+  :ensure t
+  :bind
+  ("M-i" . symbol-overlay-put)
+  ("M-I" . symbol-overlay-remove-all)
+  ("<f2>" . symbol-overlay-query-replace))
+
 (leaf anzu
   :ensure t
   :bind
