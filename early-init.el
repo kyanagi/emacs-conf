@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t -*-
 ;; 起動中はMagicファイル名を無効にする
 (defconst my/saved-file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
