@@ -673,12 +673,6 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
                               (require 'sequential-command-config)
                               (sequential-command-setup-keys))))
 
-;; (leaf scratch-ext
-;;   :ensure t
-;;   :require t
-;;   )
-(load "/Users/ani/c/scratch-ext-el/scratch-ext.el")
-
 (leaf popwin
   :ensure t
   :global-minor-mode t)
