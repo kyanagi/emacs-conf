@@ -100,11 +100,13 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (run-with-idle-timer 60.0 t #'garbage-collect)
   (fset 'display-startup-echo-area-message 'ignore))
 
-(leaf exec-path-from-shell
-  :ensure t
+(leaf exec-path-from-shell-cache
+  :if (memq window-system '(mac ns))
+  :require t
+  :custom
+  `(exec-path-from-shell-cache-file . ,(my/locate-user-emacs-data-file "path-cache"))
   :config
-  (when (memq window-system '(mac ns))
-    (exec-path-from-shell-initialize)))
+  (exec-path-from-shell-cache-initialize-with-cache))
 
 (leaf cus-start
   :preface
