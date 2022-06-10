@@ -6,15 +6,6 @@
 ;;; https://www.grugrut.net/posts/my-emacs-init-el/
 ;;; https://emacs-jp.github.io/tips/startup-optimization
 
-;;; 起動中のハック
-;; 起動中はMagicファイル名を無効にする（ファイル末尾で戻す）
-(defconst my/saved-file-name-handler-alist file-name-handler-alist)
-(setq file-name-handler-alist nil)
-
-;; 起動中はGCしない
-(setq gc-cons-threshold most-positive-fixnum)
-(setq gc-cons-percentage 0.5)
-
 
 (eval-and-compile
   (when (or load-file-name byte-compile-current-file)
@@ -748,10 +739,6 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 (run-with-idle-timer 0.5 nil (lambda () (run-hooks 'my/emacs-launched-hook)))
 
 ;; TODO: judge-indent
-
-;;; Magicファイル名を復帰
-(setq file-name-handler-alist my/saved-file-name-handler-alist)
-(makunbound 'my/saved-file-name-handler-alist)
 
 (provide 'init)
 
