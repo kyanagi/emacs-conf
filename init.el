@@ -68,14 +68,6 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
           (push dir load-path))))))
 
 ;; ここに設定を書く
-(leaf leaf
-  :config
-  (leaf leaf-convert :ensure t)
-  (leaf leaf-tree
-    :ensure t
-    :custom ((imenu-list-size . 30)
-             (imenu-list-position . 'left))))
-
 (leaf macrostep
   :ensure t
   :bind (("C-c e" . macrostep-expand)))
