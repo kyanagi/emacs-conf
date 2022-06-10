@@ -6,9 +6,15 @@
 ;;; https://www.grugrut.net/posts/my-emacs-init-el/
 ;;; https://emacs-jp.github.io/tips/startup-optimization
 
-;;; 起動中はMagicファイル名を無効にする（ファイル末尾で戻す）
+;;; 起動中のハック
+;; 起動中はMagicファイル名を無効にする（ファイル末尾で戻す）
 (defconst my/saved-file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
+
+;; 起動中はGCしない
+(setq gc-cons-threshold most-positive-fixnum)
+(setq gc-cons-percentage 0.5)
+
 
 (eval-and-compile
   (when (or load-file-name byte-compile-current-file)
@@ -83,11 +89,13 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   `((inhibit-startup-screen . t)
     (user-mail-address . "yanagi@shakenbu.org")
     (source-directory . "~/opt/emacs")
-    (gc-cons-threshold . ,(* 100 1000 1000))
     )
   :hook
   (window-setup-hook . (lambda ()
                          (message (format "emacs-init-time = %s"(emacs-init-time)))))
+  (my/emacs-launched-hook . (lambda ()
+                              (setq gc-cons-threshold (* 32 1000 1000))
+                              (setq gc-cons-percentage 0.1)))
   :config
   (run-with-idle-timer 60.0 t #'garbage-collect)
   (fset 'display-startup-echo-area-message 'ignore))
