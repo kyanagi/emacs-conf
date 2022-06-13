@@ -99,12 +99,15 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :config
   (exec-path-from-shell-cache-initialize-with-cache))
 
+(leaf scratch-ext
+  :require t
+  :bind
+  ("M-s M-s" . scratch-ext-switch-to-scratch)
+  :custom
+  `(scratch-ext-log-directory . ,(my/locate-user-emacs-data-file "scratch")))
+
 (leaf cus-start
   :preface
-  (defun my/switch-to-scratch ()
-    (interactive)
-    (switch-to-buffer "*scratch*"))
-
   (defun my/kill-region-or-backward-delete-word (&optional arg)
     "Kill a region or a word backward."
     (interactive)
@@ -118,7 +121,6 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
    ("M-g" . goto-line)
    ("C-q" . nil)
    ("C-c C-q" . quoted-insert)
-   ("M-s M-s" . my/switch-to-scratch)
    ("C-w" . my/kill-region-or-backward-delete-word)
    )
 
