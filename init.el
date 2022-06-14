@@ -347,6 +347,8 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
    ))
 
 (leaf electric-pair
+  :hook
+  (minibuffer-setup-hook . (lambda () (electric-pair-local-mode -1)))
   :global-minor-mode t)
 
 (leaf indent
