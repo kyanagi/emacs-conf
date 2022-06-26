@@ -398,6 +398,10 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :hook
   ((find-function-after-hook . view-mode-enter)))
 
+(leaf sh-script
+  :custom
+  (sh-basic-offset . 2))
+
 (leaf makefile-mode
   :hook
   (makefile-mode-hook . (lambda ()
