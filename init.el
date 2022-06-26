@@ -489,7 +489,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
           (invalid-regexp nil))))
 
     :custom
-    (completion-styles . '(partial-completion orderless))
+    (completion-styles . '(basic partial-completion orderless))
     (completion-category-overrides . '((consult-location (styles orderless-migemo-style))))
 
     :config
