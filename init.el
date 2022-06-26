@@ -78,6 +78,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :leaf-defer nil
   :custom
   `((inhibit-startup-screen . t)
+    (initial-scratch-message . nil)
     (user-mail-address . "yanagi@shakenbu.org")
     (source-directory . "~/opt/emacs")
     )
