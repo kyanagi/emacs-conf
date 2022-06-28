@@ -677,11 +677,6 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :ensure t
   :global-minor-mode t)
 
-(leaf beacon
-  :ensure t
-  :blackout t
-  :global-minor-mode t)
-
 (leaf volatile-highlights
   :ensure t
   :after modus-themes
