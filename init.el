@@ -77,11 +77,10 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 (leaf startup
   :leaf-defer nil
   :custom
-  `((inhibit-startup-screen . t)
-    (initial-scratch-message . nil)
-    (user-mail-address . "yanagi@shakenbu.org")
-    (source-directory . "~/opt/emacs")
-    )
+  (inhibit-startup-screen . t)
+  (initial-scratch-message . nil)
+  (user-mail-address . "yanagi@shakenbu.org")
+  (source-directory . "~/opt/emacs")
   :hook
   (window-setup-hook . (lambda ()
                          (message (format "emacs-init-time = %s"(emacs-init-time)))))
@@ -117,37 +116,31 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
       (delete-region (point) (progn (backward-word (or arg 1)) (point)))))
 
   :bind
-  (("C-h" . backward-delete-char)
-   ("C-c h" . help-command)
-   ("M-g" . goto-line)
-   ("C-q" . nil)
-   ("C-c C-q" . quoted-insert)
-   ("C-w" . my/kill-region-or-backward-delete-word)
-   )
+  ("C-h" . backward-delete-char)
+  ("C-c h" . help-command)
+  ("M-g" . goto-line)
+  ("C-q" . nil)
+  ("C-c C-q" . quoted-insert)
+  ("C-w" . my/kill-region-or-backward-delete-word)
 
   :custom
-  `((indent-tabs-mode . nil)
-    (create-lockfiles . nil)
-    (history-length . 1000)
-    (history-delete-duplicates . t)
-    (text-quoting-style . 'straight)
-    (use-dialog-box . nil)
-    )
-  )
+  (indent-tabs-mode . nil)
+  (create-lockfiles . nil)
+  (history-length . 1000)
+  (history-delete-duplicates . t)
+  (text-quoting-style . 'straight)
+  (use-dialog-box . nil))
 
 (leaf modus-themes
   :ensure t
   :custom
-  (
-   (modus-themes-syntax . '(green-strings))
-   (modus-themes-fringes . 'intense)
-   (modus-themes-paren-match '(bold intense))
-   (modus-themes-mode-line '(3d))
-   )
+  (modus-themes-syntax . '(green-strings))
+  (modus-themes-fringes . 'intense)
+  (modus-themes-paren-match '(bold intense))
+  (modus-themes-mode-line '(3d))
   :config
   (modus-themes-load-themes)
-  (modus-themes-load-vivendi)
-  )
+  (modus-themes-load-vivendi))
 
 (leaf window
   :preface
@@ -170,11 +163,10 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     (other-window 1))
 
   :bind
-  (("C-t" . my/other-window-or-split)
-   ("C-q C-q" . delete-other-windows)
-   ("C-M-j" . scroll-up-line)
-   ("C-M-k" . scroll-down-line))
-  )
+  ("C-t" . my/other-window-or-split)
+  ("C-q C-q" . delete-other-windows)
+  ("C-M-j" . scroll-up-line)
+  ("C-M-k" . scroll-down-line))
 
 (leaf frame
   :preface
@@ -197,16 +189,15 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
       (set-frame-parameter nil 'alpha new-opacity)))
 
   :bind
-  (("<M-left>" . my/decrease-frame-opacity)
-   ("<M-right>" . my/increase-frame-opacity))
+  ("<M-left>" . my/decrease-frame-opacity)
+  ("<M-right>" . my/increase-frame-opacity)
   :custom
-  ((window-resize-pixelwise . t)
-   (frame-resize-pixelwise . t))
-  )
+  (window-resize-pixelwise . t)
+  (frame-resize-pixelwise . t))
 
 (leaf font
   :custom
-  ((use-default-font-for-symbols . nil))
+  (use-default-font-for-symbols . nil)
 
   :config
   ;; http://extra-vision.blogspot.com/2016/07/emacs.html
@@ -214,8 +205,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
          (fsn (create-fontset-from-ascii-font "Monaco-14" nil fontset-name)))
     (set-fontset-font fsn '#x3000 (font-spec :family "HackGen Console" :size 15) nil 'append)
     (set-fontset-font fsn 'unicode (font-spec :family "Migu 1M" :size 16) nil 'append)
-    (add-to-list 'default-frame-alist `(font . ,fsn)))
-  )
+    (add-to-list 'default-frame-alist `(font . ,fsn))))
 
 (leaf display-settings
   :custom
@@ -234,8 +224,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     (display-time-format . "%m/%d(%a)%H:%M")
     (display-time-mode . t)
     (display-line-numbers . t)
-    (show-trailing-whitespace . t)
-    )
+    (show-trailing-whitespace . t))
   :config
   (add-to-list 'default-frame-alist '(width . 180))
   (add-to-list 'default-frame-alist '(height . 50))
@@ -245,9 +234,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (leaf Buffer-menu-mode
     :hook
     (Buffer-menu-mode-hook . (lambda ()
-                               (setq show-trailing-whitespace nil)))
-    )
-  )
+                               (setq show-trailing-whitespace nil)))))
 
 (leaf *mode-line
   :preface
@@ -260,14 +247,13 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
                      (- (point) (line-end-position) 1))
      'face '(:foreground "gray60")))
   :custom
-  ((mode-line-format
-    .
-    '("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification
-      mode-line-buffer-identification "   " mode-line-position
-      (:eval
-       (my:mode-line-position-reverse))
-      (vc-mode vc-mode) "  " mode-line-modes mode-line-misc-info mode-line-end-spaces)
-    )))
+  (mode-line-format
+   .
+   '("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification
+     mode-line-buffer-identification "   " mode-line-position
+     (:eval
+      (my:mode-line-position-reverse))
+     (vc-mode vc-mode) "  " mode-line-modes mode-line-misc-info mode-line-end-spaces)))
 
 
 (leaf files
@@ -275,10 +261,9 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (defvar my/auto-save-exclude-filename-regexp "\\(^/[a-z]+:\\)\\|\\(\\.gpg$\\)\\|\\(/Dropbox/\\)")
 
   :custom
-  ((auto-save-visited-interval . 0.5)
-   (make-backup-files . nil)
-   (require-final-newline . t)
-   )
+  (auto-save-visited-interval . 0.5)
+  (make-backup-files . nil)
+  (require-final-newline . t)
 
   :config
   (leaf switch-buffer-functions
@@ -291,8 +276,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
                   (string-match my/auto-save-exclude-filename-regexp filename))
              -1))))
     :hook
-    (switch-buffer-functions . my/toggle-auto-save-visited-mode-for-buffer)
-    )
+    (switch-buffer-functions . my/toggle-auto-save-visited-mode-for-buffer))
 
   ;; 開いているファイルとバッファをリネームする
   ;; https://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs
@@ -312,8 +296,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
             (set-visited-file-name new-name)
             (set-buffer-modified-p nil)
             (message "File `%s' successfully renamed to `%s'"
-                     name (file-name-nondirectory new-name)))))))
-  )
+                     name (file-name-nondirectory new-name))))))))
 
 (leaf save-place
   :custom
@@ -335,17 +318,15 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     (interactive)
     (let ((file-name (buffer-file-name)))
       (kill-new file-name)
-      (message "File name copied: %s" file-name)
-      ))
+      (message "File name copied: %s" file-name)))
 
   :bind*
-  (("C-c C-k" . kill-current-buffer)
-   ("C-x M-w" . my/copy-whole-buffer-as-kill))
+  ("C-c C-k" . kill-current-buffer)
+  ("C-x M-w" . my/copy-whole-buffer-as-kill)
   :custom
-  ((kill-ring-max . 300)
-   (kill-do-not-save-duplicates . t)
-   (kill-read-only-ok . t)
-   ))
+  (kill-ring-max . 300)
+  (kill-do-not-save-duplicates . t)
+  (kill-read-only-ok . t))
 
 (leaf electric-pair
   :hook
@@ -359,8 +340,8 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     (yank)
     (call-interactively 'indent-region))
   :bind
-  (("C-M-'" . indent-region)
-   ("C-M-y" . my/yank-and-indent)))
+  ("C-M-'" . indent-region)
+  ("C-M-y" . my/yank-and-indent))
 
 (leaf highlight-indent-guides
   :ensure t
@@ -368,18 +349,16 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :hook (yaml-mode-hook . highlight-indent-guides-mode)
   :custom
   (highlight-indent-guides-method . 'bitmap)
-  (highlight-indent-guides-responsive . 'stack)
-  )
+  (highlight-indent-guides-responsive . 'stack))
 
 (leaf comment
   :custom
-  ((comment-style . 'multi-line))
-  )
+  (comment-style . 'multi-line))
 
 (leaf uniquify
   :custom
-  ((uniquify-buffer-name-style . 'post-forward-angle-brackets)
-   (uniquify-ignore-buffers-re . "*[^*]+*")))
+  (uniquify-buffer-name-style . 'post-forward-angle-brackets)
+  (uniquify-ignore-buffers-re . "*[^*]+*"))
 
 (leaf view
   :bind
@@ -391,12 +370,11 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     ("j" . View-scroll-line-forward)
     ("k" . View-scroll-line-backward)))
   :custom
-  ((view-read-only . t)
-   ))
+  (view-read-only . t))
 
 (leaf find-func
   :hook
-  ((find-function-after-hook . view-mode-enter)))
+  (find-function-after-hook . view-mode-enter))
 
 (leaf sh-script
   :custom
@@ -405,8 +383,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 (leaf makefile-mode
   :hook
   (makefile-mode-hook . (lambda ()
-                          (fset 'makefile-warn-suspicious-lines 'ignore)))
-  )
+                          (fset 'makefile-warn-suspicious-lines 'ignore))))
 
 (leaf ruby-mode
   :hook
@@ -414,14 +391,12 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :custom
   (ruby-insert-encoding-magic-comment . nil)
   :config
-  (leaf ruby-electric :ensure t :blackout t)
-  )
+  (leaf ruby-electric :ensure t :blackout t))
 
 (leaf lua-mode
   :ensure t
   :custom
-  (lua-indent-level . 2)
-  )
+  (lua-indent-level . 2))
 
 (leaf iflipb
   :ensure t
@@ -429,12 +404,10 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (("C-." . iflipb-next-buffer)
    ("C-," . iflipb-previous-buffer))
   :custom
-  ((iflipb-wrap-around . t)
-   (iflipb-ignore-buffers . (lambda (bufname)
-                              (and (not (string= "*scratch*" bufname))
-                                   (string-match "^[*]" bufname))))
-   )
-  )
+  (iflipb-wrap-around . t)
+  (iflipb-ignore-buffers . (lambda (bufname)
+                             (and (not (string= "*scratch*" bufname))
+                                  (string-match "^[*]" bufname)))))
 
 (leaf recentf
   :custom
@@ -453,8 +426,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     (enable-recursive-minibuffers . t)
     (minibuffer-prompt-properties . '(read-only t cursor-intangible t face minibuffer-prompt))
     :hook
-    (minibuffer-setup-hook . cursor-intangible-mode)
-    )
+    (minibuffer-setup-hook . cursor-intangible-mode))
 
   (leaf vertico
     :ensure t
@@ -474,8 +446,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     :global-minor-mode t
     :bind
     (:vertico-map
-     ("^" . #'my/vertico-insert-project-root))
-    )
+     ("^" . #'my/vertico-insert-project-root)))
 
   (leaf orderless
     :ensure t
@@ -497,8 +468,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
      orderless-migemo-style
      (orderless-matching-styles '(orderless-literal
                                   orderless-regexp
-                                  orderless-migemo)))
-    )
+                                  orderless-migemo))))
 
   (leaf marginalia
     :ensure t
@@ -517,15 +487,13 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
               nil)
           (apply orig-fun (list name)))))
     :bind
-    (("C-S-s" . consult-line)
-     ("C-x b" . consult-buffer)
-     ("M-y" . consult-yank-from-kill-ring)
-     (:isearch-mode-map
-      ("C-l" . consult-line))
-     )
+    ("C-S-s" . consult-line)
+    ("C-x b" . consult-buffer)
+    ("M-y" . consult-yank-from-kill-ring)
+    (:isearch-mode-map
+     ("C-l" . consult-line))
     :advice
-    (:around consult--find-file-temporarily my/consult-preview-exclude-by-file-name)
-    )
+    (:around consult--find-file-temporarily my/consult-preview-exclude-by-file-name))
 
   (leaf consult-dir
     :ensure t
@@ -533,8 +501,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     ("C-x C-d" . consult-dir)
     (:vertico-map
      ("C-x C-d" . consult-dir)
-     ("C-x C-j" . consult-dir-jump-file))
-    )
+     ("C-x C-j" . consult-dir-jump-file)))
 
   (leaf embark
     :ensure t
@@ -547,8 +514,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     (add-to-list 'display-buffer-alist
                  '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                    nil
-                   (window-parameters (mode-line-format . none))))
-    )
+                   (window-parameters (mode-line-format . none)))))
 
   (leaf embark-consult
     :ensure t
@@ -573,15 +539,13 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     (affe-regexp-function . #'orderless-pattern-compiler)
     (affe-highlight-function . #'orderless--highlight)
     :config
-    (consult-customize my/affe-grep :preview-key (kbd "M-."))
-    )
+    (consult-customize my/affe-grep :preview-key (kbd "M-.")))
 
   (leaf savehist-mode
     :custom
     `((savehist-file . ,(my/locate-user-emacs-data-file "history"))
       (savehist-additional-variables . '(search-ring regexp-search-ring)))
-    :global-minor-mode t)
-  )
+    :global-minor-mode t))
 
 (leaf corfu
   :ensure t
@@ -633,38 +597,32 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
     (migemo-options . '("-q" "--emacs" "-s" ,(expand-file-name "~/.config/migemo/migemo-dict.jis3_4")))
     )
   :hook
-  (my/emacs-launched-hook . migemo-init)
-  )
+  (my/emacs-launched-hook . migemo-init))
 
 (leaf undo-fu
   :ensure t
   :bind
-  (("C-/" . undo-fu-only-undo)
-   ("C-]" . undo-fu-only-redo))
+  ("C-/" . undo-fu-only-undo)
+  ("C-]" . undo-fu-only-redo)
   :custom
-  ((undo-limit . 1000000)
-   (undo-strong-limit . 1500000))
-  )
+  (undo-limit . 1000000)
+  (undo-strong-limit . 1500000))
 
 (leaf epa-file
   :custom
   (epg-gpg-program . "gpg1"))
 
 (leaf yaml-mode
-  :ensure t
-  )
+  :ensure t)
 
 (leaf markdown-mode
-  :ensure t
-  )
+  :ensure t)
 
 (leaf terraform-mode
-  :ensure t
-  )
+  :ensure t)
 
 (leaf dockerfile-mode
-  :ensure t
-  )
+  :ensure t)
 
 (leaf sequential-command
   :ensure t
@@ -683,8 +641,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :blackout t
   :config
   (volatile-highlights-mode t)
-  (set-face-attribute 'vhl/default-face nil :inherit 'modus-themes-special-mild :background nil :foreground nil)
-  )
+  (set-face-attribute 'vhl/default-face nil :inherit 'modus-themes-special-mild :background nil :foreground nil))
 
 (leaf symbol-overlay
   :ensure t
@@ -696,29 +653,25 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 (leaf anzu
   :ensure t
   :bind
-  (([remap query-replace] . anzu-query-replace)
-   ([remap query-replace-regexp] . anzu-query-replace-regexp))
+  ([remap query-replace] . anzu-query-replace)
+  ([remap query-replace-regexp] . anzu-query-replace-regexp)
   :custom
-  ((anzu-use-migemo . t)
-   )
-  :global-minor-mode t
-  )
+  (anzu-use-migemo . t)
+  :global-minor-mode t)
 
 (leaf region-bindings-mode
   :ensure t
   :require t
   :bind
-  ((region-bindings-mode-map
-    ("i" . mc/edit-lines)
-    ))
+  (region-bindings-mode-map
+   ("i" . mc/edit-lines))
   :config
   (region-bindings-mode-enable))
 
 (leaf multiple-cursors
   :ensure t
   :custom
-  ((mc/always-run-for-all . t))
-  )
+  (mc/always-run-for-all . t))
 
 (leaf *mac
   :preface
@@ -731,13 +684,12 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (defun my/ime-off ()
     (mac-select-input-source "com.apple.keylayout.ABC"))
   :custom
-  ((mac-option-modifier . 'alt))
+  (mac-option-modifier . 'alt)
   :config
   (mac-auto-ascii-mode 1)
   :hook
   (mac-selected-keyboard-input-source-change-hook . my/mac-change-cursor-color-based-on-input-source)
-  (minibuffer-setup-hook . my/ime-off)
-  )
+  (minibuffer-setup-hook . my/ime-off))
 
 ;;; 起動後に後回しできる初期化処理をフックで呼ぶ
 (run-with-idle-timer 0.5 nil (lambda () (run-hooks 'my/emacs-launched-hook)))
