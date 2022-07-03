@@ -196,6 +196,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (frame-resize-pixelwise . t))
 
 (leaf font
+  :if (window-system)
   :custom
   (use-default-font-for-symbols . nil)
 
