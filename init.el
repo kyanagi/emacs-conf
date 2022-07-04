@@ -640,9 +640,9 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :ensure t
   :after modus-themes
   :blackout t
-  :config
-  (volatile-highlights-mode t)
-  (set-face-attribute 'vhl/default-face nil :inherit 'modus-themes-special-mild :background nil :foreground nil))
+  :custom-face
+  (vhl/default-face . '((nil :inherit 'modus-themes-special-cold)))
+  :global-minor-mode t)
 
 (leaf symbol-overlay
   :ensure t
