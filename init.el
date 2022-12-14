@@ -395,6 +395,8 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (ruby-mode-hook . ruby-electric-mode)
   :custom
   (ruby-insert-encoding-magic-comment . nil)
+  (ruby-use-smie . nil)
+  (ruby-deep-indent-paren-style . nil)
   :config
   (leaf ruby-electric :ensure t :blackout t))
 
