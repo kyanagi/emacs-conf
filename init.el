@@ -329,6 +329,10 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (kill-do-not-save-duplicates . t)
   (kill-read-only-ok . t))
 
+(leaf replace
+  :custom
+  (case-replace . nil))
+
 (leaf electric-pair
   :hook
   (minibuffer-setup-hook . (lambda () (electric-pair-local-mode -1)))
