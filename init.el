@@ -403,6 +403,10 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :custom
   (lua-indent-level . 2))
 
+(leaf scss-mode
+  :custom
+  (css-indent-offset . 2))
+
 (leaf iflipb
   :ensure t
   :bind
