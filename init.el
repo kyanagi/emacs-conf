@@ -35,6 +35,13 @@
     ;; initialize leaf-keywords.el
     (leaf-keywords-init)))
 
+(defun my/locate-xdg-user-config-file (name)
+  "XDG Base Directoryに基づくユーザの設定ファイルのパスを返す。"
+  (let ((xdg-config-home (getenv "XDG_CONFIG_HOME")))
+    (unless xdg-config-home
+      (error "XDG_CONFIG_HOME is not set."))
+    (expand-file-name name xdg-config-home)))
+
 (defun my/locate-user-emacs-data-file (name)
   "Emacsが保存する個人用データファイルのパスを返す。
 XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
@@ -68,6 +75,20 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
 (leaf macrostep
   :ensure t
   :bind (("C-c e" . macrostep-expand)))
+
+(leaf *util
+  :preface
+  (defun my/change-minor-mode-map-priority (mode place)
+    "マイナーモードのキーバインドの優先度を設定する。
+
+PLACEが'topのときはそのキーバインドの優先度を最も高く、
+'bottomのときは優先度を最も低くする。"
+    (let ((rel (assq mode minor-mode-map-alist)))
+      (when rel
+        (cond ((eq place 'top)
+               (setq minor-mode-map-alist (append (list rel) (delete rel minor-mode-map-alist))))
+              ((eq place 'bottom)
+               (setq minor-mode-map-alist (append (delete rel minor-mode-map-alist) (list rel)))))))))
 
 (leaf cus-edit
   :doc "tools for customizing Emacs and Lisp packages"
@@ -314,6 +335,7 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
       (kill-new (buffer-string))
       (message "Buffer copied onto the kill ring.")
       ))
+
   (defun my/copy-buffer-file-name ()
     "Copy name of the visiting buffer."
     (interactive)
@@ -398,7 +420,14 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   (ruby-use-smie . nil)
   (ruby-deep-indent-paren-style . nil)
   :config
-  (leaf ruby-electric :ensure t :blackout t))
+  (leaf ruby-electric
+    :ensure t
+    :blackout t
+    :config
+    ;; SKKで変換できなくなるので優先度を下げる
+    ;; https://blade.ruby-lang.org/ruby-list/45511
+    (eval-after-load 'ruby-electric
+      '(my/change-minor-mode-map-priority 'ruby-electric-mode 'bottom))))
 
 (leaf lua-mode
   :ensure t
@@ -683,6 +712,25 @@ XDG_DATA_HOMEが設定されていれば$XDG_DATA_HOME/emacs、
   :ensure t
   :custom
   (mc/always-run-for-all . t))
+
+(leaf skk
+  :ensure ddskk
+  :custom
+  `((skk-jisyo-code . 'utf-8)
+    (skk-user-directory . ,(my/locate-xdg-user-config-file "skk"))
+    (skk-jisyo . ,(my/locate-xdg-user-config-file "skk/skk-jisyo.utf-8"))
+    (skk-backup-jisyo . ,(my/locate-xdg-user-config-file "skk/skk-jisyo.BAK"))
+    (default-input-method . "japanese-skk")
+    (skk-egg-like-newline . t)
+    (skk-henkan-strict-okuri-precedence . t)
+    (skk-share-private-jisyo . t)
+    (skk-inhibit-ja-dic-search . t)
+    (skk-check-okurigana-on-touroku . t)
+    (skk-server-host . "localhost")
+    (skk-server-portnum . 1178)
+    (skk-sticky-key . ";"))
+  :bind
+  ("C-x C-j" . skk-mode))
 
 (leaf *mac
   :preface
