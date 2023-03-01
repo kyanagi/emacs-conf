@@ -93,7 +93,10 @@ PLACEが'topのときはそのキーバインドの優先度を最も高く、
 (leaf cus-edit
   :doc "tools for customizing Emacs and Lisp packages"
   :tag "builtin" "faces" "help"
-  :custom `((custom-file . ,(locate-user-emacs-file "custom.el"))))
+  :custom `((custom-file . ,(locate-user-emacs-file "custom.el")))
+  :config
+  (if (file-exists-p (expand-file-name custom-file))
+      (load-file (expand-file-name custom-file))))
 
 (leaf startup
   :leaf-defer nil
