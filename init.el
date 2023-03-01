@@ -163,8 +163,8 @@ PLACEが'topのときはそのキーバインドの優先度を最も高く、
   (modus-themes-paren-match '(bold intense))
   (modus-themes-mode-line '(3d))
   :config
-  (modus-themes-load-themes)
-  (modus-themes-load-vivendi))
+  (require-theme 'modus-themes)
+  (load-theme 'modus-vivendi))
 
 (leaf window
   :preface
